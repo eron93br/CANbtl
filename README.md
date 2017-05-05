@@ -16,3 +16,5 @@ This repository is for the CAN Bit time logic implemented in Verilog HDL for the
  
  https://github.com/freecores/can
  
+# CAN decoder 
+
