@@ -9,3 +9,7 @@ CAN decoder implemented in Verilog HDL
 - CAN Decoder Verilog modules RTL structure 
 
 This module is described in Verilog HDL. 
+
+- References
+
+[CAN Bus Frame on Wikipedia](https://en.wikipedia.org/wiki/CAN_bus#Frames)
