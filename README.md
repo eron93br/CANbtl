@@ -6,15 +6,15 @@ This repository is for the CAN Bit time logic implemented in Verilog HDL for the
 
  - Links
  
- http://ww1.microchip.com/downloads/en/AppNotes/00754.pdf
+ [Understanding Microchip’s CAN Module Bit Timing](http://ww1.microchip.com/downloads/en/AppNotes/00754.pdf)
  
- http://www.kvaser.com/wp-content/uploads/2014/08/boschcia99-can-bit-timing.pdf
+ [Can BIT Timing Kvaser](http://www.kvaser.com/wp-content/uploads/2014/08/boschcia99-can-bit-timing.pdf)
  
  - Novos links
  
  https://www.picotech.com/library/oscilloscopes/can-bus-serial-protocol-decoding
  
- https://github.com/freecores/can
+ [FREEcores CAN](https://github.com/freecores/can)
  
 # CAN decoder 
 
