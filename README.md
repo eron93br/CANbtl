@@ -16,5 +16,7 @@ This repository is for the CAN Bit time logic implemented in Verilog HDL for the
  
  [FREEcores CAN](https://github.com/freecores/can)
  
+ [CRC checker](https://www.ghsi.de/CRC/index.php?Polynom=1111111111111001&Message=E1AC00CAFEFF)
+ 
 # CAN decoder 
 
