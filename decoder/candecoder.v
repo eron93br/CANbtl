@@ -83,7 +83,11 @@ begin
 				// IDLE STATE, ESPERA INICIO DA TRANSMISSAO
 				0: begin 
 				      //  reset ERROR flags
-						cont = 0;
+						ov_flag = 0;
+						frame_data = 0;
+						frame_error = 0;
+						frame_overload = 0;
+						frame_remote = 0;
 						crcclk=0;
 						start_crc = 0;
 						crc_match = 0;
@@ -97,8 +101,8 @@ begin
 						getframe = 1'b0; 
 						getcrc = 1'b0; 
 						error_flag=7'bzzzzzzz;
-						//
-						if ( can_data_bit == 0)
+						// BIT 0!!!!!!
+						if ( can_data_bit == 0 )
 						begin
 						      start_crc = 1'b1; 
 						      arbitration_field = 1;
@@ -107,6 +111,7 @@ begin
 								state = 1;
 						end
 						else
+						// BIT 1!!!!!
 						begin
 						   state = 0; 
 							start_crc=0;
@@ -118,13 +123,13 @@ begin
 									 start_crc = 1'b0;    // para de calcular CRC!
 									 frame_error = 1'b1;
 									 error_type = 1'b0;   // PASSIVE ERROR !
-									 cont = 6;
+									 cont = 7;
 									 state = 14;
 							end 
-							else
+							/*else
 							begin
 							   cont = 0;
-							end
+							end*/
 						end
 						s0 = can_data_bit; 
 						// se o bit for 1, ou seja, recesivo, nao comeca transmissao!
@@ -134,34 +139,36 @@ begin
 				// observacao feita por eron, colocar uma logica que pegue 11 ou 29 bits
 				// $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 				1: begin
+				      state = 1; 
 				      start_crc=0;
 						arbitration[(cont-1)] = can_data_bit; 
 						cont = cont - 1;
 						// logica pra checar ERROR frame!
-						if( cont == 23)
+						if( cont == 24)
 						begin
 						    error_frame = {s0,arbitration[28:24]}; 
 							 if(( error_frame == 6'b000000)  && (previous == 2'b10) )
 							 begin
 							       // MENSAGEM DE ERRO DETECTADA!!!!
 									 // proximo passo = pegar + 7 bits....
+									 ov_flag = 1'b1; 
 									 start_crc = 1'b0; 
 									 frame_error=1'b1;
 									 error_type = 1'b1;  // ACTIVE ERROR!
-									 cont = 6;
-									 state = 14;
+									 cont = 7;
+									 state = 14; 
 							 end
 						end 
 						//-------------------------------
-						      if(cont == 18)  // pegou os 11-bits , saberemos depois se [11] ou [29] 3
-						      begin
-					              state = 2; 
-							        cont = 2;
-						      end
-						      else 
+						if(cont == 18)  // pegou os 11-bits , saberemos depois se [11] ou [29] 3
+						begin
+					         state = 2; 
+							   cont = 2;
+						end
+						      /*else 
 					       	begin
 						           state = 1;
-					         end 
+					         end */
 					end
 				// End of ARBITRATION -----------------------------	
 				// RTR bit 
@@ -269,7 +276,18 @@ begin
 						if( (cont == 0) && (nbytes>0) )
 						begin
 						    cont = (8*nbytes);
-						    state = 8;     // go to get DATA bits
+							 if(frame_remote)
+							 begin
+							       can_data = 64'bz; 
+									 cont = 15;
+									 getcrc = 1'b1; 
+							       crc_calculado = crc;
+							       state = 9;     // REMOTE FRAME!!!!!!
+							 end
+							 else
+							 begin
+							       state = 8;     // go to get DATA bits
+							 end
 						end 
 		            else
 						begin
@@ -362,6 +380,7 @@ begin
 							  if(cont == 7)
 							  begin
 							     getframe = 1'b1; 
+								  cont = 0;
 							     state = 0;  // go to IDLE state!
 							  end
 						end
@@ -392,19 +411,21 @@ begin
                 end	
 			   // ERROR DELIMITER = 8'hFF - 8bits recessivos!!!!
             15: begin
+				       eof_error = 1'b0; 
+						 
 				       if( can_data_bit == 1'b1)
 						 begin
 						      cont = cont + 1'b1;
-								eof_error = 1'b0; 
 						 end
 						 else
 						 begin
 						       eof_error = 1'b1;
 						 end
 						 
-						 if( cont == 8)
+						 if( cont == 8 )
 						 begin
 						     cont = 0;
+							  getframe = 1'b1; 
 						     state = 16;
 						 end
 						 else
