@@ -151,7 +151,6 @@ begin
 							 begin
 							       // MENSAGEM DE ERRO DETECTADA!!!!
 									 // proximo passo = pegar + 7 bits....
-									 ov_flag = 1'b1; 
 									 start_crc = 1'b0; 
 									 frame_error=1'b1;
 									 error_type = 1'b1;  // ACTIVE ERROR!
@@ -350,7 +349,6 @@ begin
 						 end
 					end
 				// -------------- ACK slot  --------------------------------
-				// deixa em aberto....
 				11: begin
 						// ???
 						state=12;
@@ -438,11 +436,12 @@ begin
 				       cont = cont + 1;
 						 if ( cont == 3)
 						 begin
+						     getframe = 1'b1;
 						     state = 0;
 						 end
                  end				 
 			   // priority logic
-				default: state=34;
+				default: state=0;
 			endcase
 		end
 endmodule 
