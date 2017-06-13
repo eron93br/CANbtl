@@ -1,8 +1,8 @@
-# CANbtl
+# CAN Decoder Implementation
 
-CAN Bit time logic implementation in Verilog HDL
+CAN Decoder/Bit time logic implementation in Verilog HDL
 
-This repository is for the CAN Bit time logic implemented in Verilog HDL for the Automotive Networks course ate CIn-UFPE 2017.1
+This repository is for the CAN Decoder and Bit time logic implemented in Verilog HDL for the Automotive Networks course ate CIn-UFPE 2017.1
 
  - Links
  
@@ -10,13 +10,15 @@ This repository is for the CAN Bit time logic implemented in Verilog HDL for the
  
  [Can BIT Timing Kvaser](http://www.kvaser.com/wp-content/uploads/2014/08/boschcia99-can-bit-timing.pdf)
  
- - Novos links
+ - References and other implementations
  
- https://www.picotech.com/library/oscilloscopes/can-bus-serial-protocol-decoding
+ [CAN BUS decoding](https://www.picotech.com/library/oscilloscopes/can-bus-serial-protocol-decoding)
  
  [FREEcores CAN](https://github.com/freecores/can)
  
  [CRC checker](https://www.ghsi.de/CRC/index.php?Polynom=1111111111111001&Message=E1AC00CAFEFF)
  
 # CAN decoder 
+
+. coming soon .......
 
