@@ -6,7 +6,7 @@
 //
 // Create Date:   00:09:00 05/06/2017
 // Design Name:   bit_destuff
-// Module Name:   C:/Users/eron/Documents/canbtl/canbtl/tb_bit_destuff.v
+// Module Name:   C:/Users/RodrigoA/workspace/dcanbtl/canbtl/tb_bit_destuff.v
 // Project Name:  canbtl
 // Target Device:  
 // Tool versions:  
